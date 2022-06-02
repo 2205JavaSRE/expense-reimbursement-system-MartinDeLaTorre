@@ -14,6 +14,6 @@ public class RequestMapper {
 	 */
 	public void configureRoutes(Javalin app) {
 		app.get("/hello", ctx -> testController.hello(ctx));
-		app.get("/requestReimbursement", ctx -> reimbursementController.requestReimbursement(ctx));
+		app.post("/requestReimbursement", ctx -> reimbursementController.requestReimbursement(ctx));
 	}
 }

@@ -16,6 +16,7 @@ public class ReimbursementController {
 		} catch (Exception e) {
 			ctx.status(400);
 			ctx.result("Bad paramenters, check if your ammound is a valid decimal number.");
+			e.printStackTrace();
 		}
 		
 		return;

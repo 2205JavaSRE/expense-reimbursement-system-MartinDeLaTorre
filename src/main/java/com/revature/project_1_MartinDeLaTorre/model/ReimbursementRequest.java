@@ -12,4 +12,16 @@ public class ReimbursementRequest {
 	}
 	String plead;
 	double ammount;
+	public String getPlead() {
+		return plead;
+	}
+	public void setPlead(String plead) {
+		this.plead = plead;
+	}
+	public double getAmmount() {
+		return ammount;
+	}
+	public void setAmmount(double ammount) {
+		this.ammount = ammount;
+	}
 }
