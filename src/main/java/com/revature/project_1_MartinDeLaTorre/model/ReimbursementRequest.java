@@ -1,17 +1,37 @@
 package com.revature.project_1_MartinDeLaTorre.model;
 
+import java.sql.Timestamp;
+
 public class ReimbursementRequest {
-	public ReimbursementRequest(String plead, String ammountUSD) throws Exception {
+	enum ExpenseType {
+		LODGING,
+		FOOD,
+		TRAVEL,
+		OTHER
+	}
+	enum Status {
+		PENDING,
+		ACCEPTED,
+		REJECTED
+	}
+	int requestId;
+	String plead;
+	double ammount;
+	ExpenseType expenseType;
+	int requestUserId;
+	Timestamp timestamp;
+	
+	public ReimbursementRequest(String plead, String ammountUSD) throws NumberFormatException {
 		// TODO Auto-generated constructor stub
 		this.plead = plead;
 		try {
 			this.ammount = Double.parseDouble(ammountUSD);
 		} catch (NumberFormatException e){
-			throw new Exception("Invalid number");
+			throw e;
 		}
 	}
-	String plead;
-	double ammount;
+	
+	
 	public String getPlead() {
 		return plead;
 	}
