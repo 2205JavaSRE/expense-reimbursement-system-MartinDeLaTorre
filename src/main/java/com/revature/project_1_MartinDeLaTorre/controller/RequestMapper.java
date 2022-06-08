@@ -30,12 +30,12 @@ public class RequestMapper {
 		app.post("/logout", ctx -> authenticationController.logout(ctx));
 		
 		//----------Request Reimbursement Endpoints-----------
-		//TODO: add categories "LODGING" "TRAVEL" "FOOD", and "OTHER"
-		//TODO: store which employee made the request
+		//has categories "LODGING" "TRAVEL" "FOOD", and "OTHER"
+		//stores which employee made the request, which means prior login required.
 		app.post("/requestReimbursement", ctx -> reimbursementController.requestReimbursement(ctx));
 		
 		//----------Viewer Endpoints-----------
-		//TODO: add endpoint for viewing all reimbursement requests (must be login as finance manager)
+		// endpoint for viewing all reimbursement requests (must be login as finance manager)
 		app.get("/financeManager/viewAllTickets", ctx -> ViewTicketsController.viewAllTickets(ctx));
 		
 		//TODO: add endpoint for pending reimbursement requests (must be login as finance manager)

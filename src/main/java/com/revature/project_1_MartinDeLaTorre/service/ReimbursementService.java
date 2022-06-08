@@ -8,8 +8,9 @@ public class ReimbursementService {
 	
 	private static ReimbursementRequestDao rrd = new ReimbursementRequestDaoImpl();
 
-	public void createReimbursementRequest(String plead, String ammount) throws Exception {
-		ReimbursementRequest rr = new ReimbursementRequest(plead, ammount);
+	public void createReimbursementRequest
+		(String plead, String ammount, ReimbursementRequest.ExpenseType expenseType, int userId) throws Exception {
+		ReimbursementRequest rr = new ReimbursementRequest(plead, ammount, expenseType, userId);
 		rrd.insertRequest(rr);
 	}
 

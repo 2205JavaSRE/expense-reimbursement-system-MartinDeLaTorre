@@ -32,7 +32,7 @@ public class AuthenticationController {
 		String username = ctx.formParam("username");
 		String password = ctx.formParam("password");
 		
-		if(authService.isValidFinanceManager(username, password)) {
+		if(AuthenticationService.isValidFinanceManager(username, password)) {
 			ctx.cookie("username", username);
 			ctx.cookie("password", password);
 			ctx.cookie("isFinanceManager", "true");
@@ -78,6 +78,45 @@ public class AuthenticationController {
 		return ctx.cookie("isFinanceManager").equals("true") 
 				&& AuthenticationService.isValidFinanceManager(ctx.cookie("username")
 													, ctx.cookie("password"));
+	}
+
+	public boolean isValidCredentials(Context ctx) {
+		String username = ctx.cookie("username");
+		String password = ctx.cookie("password");
+		
+		if(username == null
+				|| password == null) {
+			// Cookie could not be read.
+			return false;
+		}
+		
+		
+		
+		return authService.isValidCredentials(username, password);
+
+	}
+
+	/**
+	 * returns the user_id for an entry in the p1_user table using the username cookie in the context
+	 * 
+	 * NOT FOR USE AS AN ENDPOINT. This function assumes that the username cookie is present.
+	 * 
+	 * @param ctx
+	 * @return
+	 */
+	public int getUserId(Context ctx) {
+		String username = ctx.cookie("username");
+		
+		if(username == null) {
+			// Cookie could not be read.
+			assert false;
+			return -1;
+		}
+		
+		
+		int userId = authService.getUserId(username);
+		
+		return userId;
 	}
 
 }

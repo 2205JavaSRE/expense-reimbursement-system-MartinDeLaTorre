@@ -5,6 +5,9 @@ import com.revature.project_1_MartinDeLaTorre.controller.RequestMapper;
 import io.javalin.Javalin;
 
 public class MainDriver {
+	public static final boolean DAO_DEBUG = true;
+	public static final boolean CONTROLLER_DEBUG = false;
+
 	public static void main(String[] args) {
 		Javalin app = Javalin.create().start(7600);
 		RequestMapper rm = new RequestMapper();
