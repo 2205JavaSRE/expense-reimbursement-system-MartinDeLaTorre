@@ -61,7 +61,8 @@ public class RequestMapper {
 		//TODO: add endpoint for viewing reimbursement requests from a specific employee 
 			//(must be login as finance manager OR said specific Employee.)
 		
-		//TODO: add viewing features for Employees.
+		// Endpoint so an Employee can view their submitted tickets.
+		app.get("/viewAllMyTickets", ctx -> ViewTicketsController.viewAllMyTickets(ctx));
 		
 		//----------Approve/Deny action endpoints-------------
 		// Endpoint for approving reimbursement requests
