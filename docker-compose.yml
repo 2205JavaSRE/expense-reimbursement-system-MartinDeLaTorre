@@ -15,6 +15,6 @@ services:
     ports:
       - 9090:9090
   graf:
-    image: 'grafana/grafana'
+    image: 'iamadroid/project-1-graphana'
     ports:
       - 8000:3000
