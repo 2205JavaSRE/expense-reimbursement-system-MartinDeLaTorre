@@ -1,5 +1,6 @@
 package com.revature.project_1_MartinDeLaTorre.controller;
 
+import com.revature.project_1_MartinDeLaTorre.model.User;
 import com.revature.project_1_MartinDeLaTorre.service.AuthenticationService;
 
 import io.javalin.http.Context;
@@ -117,6 +118,38 @@ public class AuthenticationController {
 		int userId = authService.getUserId(username);
 		
 		return userId;
+	}
+
+	public void createUser(Context ctx) {
+		// TODO Auto-generated method stub
+		if(!isValidFinanceManagerCookie(ctx)) {
+			ctx.result("You must be logged in as a Finance Manager to make new Users.");
+			return;
+		}
+		
+		String username = ctx.formParam("username");
+		String password = ctx.formParam("password");
+		if(username == null || password == null) {
+			ctx.result("Please enter a username and password for the new user.");
+			return;
+		}
+		
+		User.UserLevel userLevel;
+		try {
+		userLevel = User.UserLevel.valueOf(ctx.formParam("user_level"));
+		} catch (Throwable t) {
+			ctx.result("Invalid user_level, please choose: 'FINANCE_MANAGER' or 'EMPLOYEE'.");
+			return;
+		}
+		
+		if(!authService.isFreeUsername(username)) {
+			ctx.result("Username: " + username + " is taken. please choose a different username.");
+			return;
+		}
+		
+		authService.createUser(username, password, userLevel);
+		
+		return;
 	}
 
 }

@@ -74,4 +74,25 @@ public class ReimbursementRequestDaoImpl implements ReimbursementRequestDao {
 		return null;
 	}
 
+	@Override
+	public void updateTicket(int requestId, Status status) {
+
+		try {
+			PreparedStatement updateTicket
+				= PostgreSqlConnectionFactory.getConnection()
+				.prepareStatement("UPDATE \"reimbursement_request\""
+						+ " SET \"status\" = ?"
+						+ " WHERE \"request_id\" = ?;");
+			
+			updateTicket.setObject(1, status.name(), java.sql.Types.OTHER);
+			updateTicket.setInt(2, requestId);
+			
+			updateTicket.execute();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 }

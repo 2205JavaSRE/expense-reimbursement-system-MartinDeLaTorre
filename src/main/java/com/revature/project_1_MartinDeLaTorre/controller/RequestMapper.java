@@ -55,7 +55,7 @@ public class RequestMapper {
 		// endpoint for viewing all reimbursement requests (must be login as finance manager)
 		app.get("/financeManager/viewAllTickets", ctx -> ViewTicketsController.viewAllTickets(ctx));
 		
-		//TODO: add endpoint for pending reimbursement requests (must be login as finance manager)
+		// Endpoint for pending reimbursement requests (must be login as finance manager)
 		app.get("/financeManager/pendingTickets", ctx -> ViewTicketsController.viewPendingTickets(ctx));
 		//TODO: add endpoint for paid/approved reimbursement requests (must be login as finance manager)
 		//TODO: add endpoint for viewing reimbursement requests from a specific employee 
@@ -64,12 +64,17 @@ public class RequestMapper {
 		//TODO: add viewing features for Employees.
 		
 		//----------Approve/Deny action endpoints-------------
-		//TODO: add endpoint for approving reimbursement requests
-		//TODO: add endpoint for denying reimbursement requests
+		// Endpoint for approving reimbursement requests
+		// Endpoint for denying reimbursement requests
+		app.put("/financeManager/ticket", ctx -> reimbursementController.updateTicket(ctx));
+		
+		
 		
 		//---------Meta: account creation/deletion-------------
-		//TODO: add endpoint for creating Employee (must be logged in as finance manager)
-		//TODO: add endpoint for creating new Finance Manager (must be logged in as finance manager)
+		// Endpoint for creating Employee (must be logged in as finance manager)
+		// Endpoint for creating new Finance Manager (must be logged in as finance manager)
+		app.post("/user", ctx -> authenticationController.createUser(ctx));
+		
 		//TODO: add endpoint for creating the FIRST Finance Manager (no login required.) 
 			// (possibly replaced by deployment strategy.)
 		

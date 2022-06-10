@@ -27,6 +27,11 @@ public class ViewTicketsController {
 		return;
 	}
 
+	/**
+	 * Endpoint for viewing pending reimbursement requests (must be login as finance manager)
+	 * 
+	 * @param ctx
+	 */
 	public static void viewPendingTickets(Context ctx) {
 		
 		if(AuthenticationController.isValidFinanceManagerCookie(ctx)) {

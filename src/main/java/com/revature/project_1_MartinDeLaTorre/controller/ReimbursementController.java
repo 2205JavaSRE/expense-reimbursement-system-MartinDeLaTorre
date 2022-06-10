@@ -61,4 +61,41 @@ public class ReimbursementController {
 		return;
 	}
 
+	/**
+	 * Endpoint for approving/denying reimbursement request tickets. (must be login as finance manager)
+	 * 
+	 * @param ctx
+	 */
+	public void updateTicket(Context ctx) {
+		// TODO Auto-generated method stub
+//		int userId;
+		
+		if(AuthenticationController.isValidFinanceManagerCookie(ctx)) {
+//			userId = authController.getUserId(ctx);
+		} else {
+			ctx.result("You must be logged in as a Finance Manager to make a reimbursement request.");
+			return;
+		}
+		
+		int requestId;
+		try {
+			requestId = Integer.parseInt(ctx.formParam("request_id"));
+		} catch (NumberFormatException e) {
+			ctx.result("Invalid ticket request_id.");
+			return;
+		}
+		
+		ReimbursementRequest.Status status;
+		
+		try {
+			status = ReimbursementRequest.Status.valueOf(ctx.formParam("status"));
+		} catch (Throwable t) {
+			ctx.result("Invalid ticket status. please choose: PENDING, ACCEPTED, or REJECTED");
+			return;
+		}
+		
+		reimbursementService.updateTicket(requestId, status);
+		return;
+	}
+
 }

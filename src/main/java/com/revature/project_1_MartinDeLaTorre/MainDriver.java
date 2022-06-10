@@ -6,7 +6,7 @@ import com.revature.project_1_MartinDeLaTorre.controller.RequestMapper;
 
 import io.javalin.Javalin;
 import io.javalin.plugin.metrics.MicrometerPlugin;
-import io.micrometer.core.instrument.Counter;
+//import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.binder.jvm.*;
 import io.micrometer.core.instrument.binder.system.ProcessorMetrics;
 import io.micrometer.core.instrument.binder.system.UptimeMetrics;

@@ -1,5 +1,11 @@
 package com.revature.project_1_MartinDeLaTorre.model;
 
+/**
+ * The model representation of a row in the p1_user table in postgresql.
+ * 
+ * @author funny
+ *
+ */
 public class User {
 	int userId;
 	String username;

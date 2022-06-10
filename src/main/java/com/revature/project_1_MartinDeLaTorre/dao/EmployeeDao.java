@@ -53,6 +53,12 @@ public class EmployeeDao {
 		return false;
 	}
 
+	/**
+	 * Returns the {@link User} associated with {@code username}. If none is found, {@code null} is returned.
+	 * 
+	 * @param username
+	 * @return
+	 */
 	public User getUser(String username) {
 		try {
 			
@@ -66,7 +72,12 @@ public class EmployeeDao {
 			
 			ResultSet rs = ps.executeQuery();
 			
-			rs.next();
+			//TRICKY CODE: this code is doing 2 things, not one:
+			// It checks if the username exists
+			// It scoots the ResultSet's cursor forward.
+			if(!rs.next()) {
+				return null;
+			}
 			User user = new User();
 			user.setUserId(rs.getInt("user_id"));
 			user.setUsername(rs.getString("username"));
@@ -86,6 +97,25 @@ public class EmployeeDao {
 		}
 		
 		return null;
+	}
+
+	public void insertUser(User user) {
+		try {
+			PreparedStatement insertUser
+			  = PostgreSqlConnectionFactory.getConnection()
+			  .prepareStatement("INSERT INTO \"p1_user\" (\"username\", \"password\", \"user_level\") "
+			  		+ " VALUES (?, ?, ?);");
+			
+			insertUser.setString(1, user.getUsername());
+			insertUser.setString(2, user.getPassword());
+			insertUser.setObject(3, user.getUserLevel().name(), java.sql.Types.OTHER);
+			
+			insertUser.execute();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
