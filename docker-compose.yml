@@ -1,5 +1,7 @@
 services:
   app:
+    env_file:
+      - ./secrets/db_creds.env
     image: 'iamadroid/project-1:latest'
     container_name: project-1-martin-container
     ports:
