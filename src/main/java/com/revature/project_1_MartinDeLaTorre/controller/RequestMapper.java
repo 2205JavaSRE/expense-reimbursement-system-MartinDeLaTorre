@@ -1,6 +1,8 @@
 package com.revature.project_1_MartinDeLaTorre.controller;
 
 import io.javalin.Javalin;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.prometheus.PrometheusMeterRegistry;
 
 public class RequestMapper {
 	
@@ -12,8 +14,27 @@ public class RequestMapper {
 	 * Sets up the endpoints for the Javalin server specified by {@code app}
 	 * 
 	 * @param app
+	 * @param registry 
 	 */
-	public void configureRoutes(Javalin app) {
+	public void configureRoutes(Javalin app, PrometheusMeterRegistry registry) {
+		
+		//---------Metric Endpoints----------------
+		//Building a custom metric!
+		Counter counter = Counter
+				.builder("path_request_to_drinks")
+				.description("To keep track of the number of drink requests")
+				.tag("purpose", "demo")
+				.register(registry);
+		
+		Counter counter2 = Counter
+				.builder("number_of_http_requests_to_planet")
+				.description("To keep track of the number of planet requests")
+				.tag("purpose", "planets")
+				.register(registry);
+		
+		app.get("/metrics", ctx -> {
+			ctx.result(registry.scrape());
+		});
 		
 		//---------Test Connection Endpoints--------------
 		app.get("/hello", ctx -> testController.hello(ctx));
@@ -39,6 +60,7 @@ public class RequestMapper {
 		app.get("/financeManager/viewAllTickets", ctx -> ViewTicketsController.viewAllTickets(ctx));
 		
 		//TODO: add endpoint for pending reimbursement requests (must be login as finance manager)
+		app.get("/financeManager/pendingTickets", ctx -> ViewTicketsController.viewPendingTickets(ctx));
 		//TODO: add endpoint for paid/approved reimbursement requests (must be login as finance manager)
 		//TODO: add endpoint for viewing reimbursement requests from a specific employee 
 			//(must be login as finance manager OR said specific Employee.)

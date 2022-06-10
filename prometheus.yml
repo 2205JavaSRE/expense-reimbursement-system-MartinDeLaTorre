@@ -1,0 +1,17 @@
+global:
+  scrape_interval: 30s # Default scrapting interval is 15 seconds if not specified.
+
+scrape_configs: #Allow us to specify what targets we want to go for
+  #Target itself to make sure its okay.
+  - job_name: 'prometheus'
+    scrape_interval: 25s
+    static_configs:
+      - targets: ['localhost:9090']
+
+  - job_name: 'Martin project 1'
+    metrics_path: '/metrics' # Looks for this endpoint for all the metrics. Aka /api/metrics
+    static_configs:
+      - targets: ['app:7600'] #Use the service name provided in the docker-compose so view the network.
+                              #Referencing the name of the docker service in the compose file
+                              #Because docker compose creates a bridge network they can ref eachother.
+        
