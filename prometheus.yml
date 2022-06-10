@@ -4,7 +4,7 @@ global:
 scrape_configs: #Allow us to specify what targets we want to go for
   #Target itself to make sure its okay.
   - job_name: 'prometheus'
-    scrape_interval: 25s
+    scrape_interval: 5s
     static_configs:
       - targets: ['localhost:9090']
 

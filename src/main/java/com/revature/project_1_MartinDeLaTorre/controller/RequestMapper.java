@@ -20,24 +20,20 @@ public class RequestMapper {
 		
 		//---------Metric Endpoints----------------
 		//Building a custom metric!
-		Counter counter = Counter
-				.builder("path_request_to_drinks")
-				.description("To keep track of the number of drink requests")
+		Counter numHello = Counter
+				.builder("hello_endpoint_hit_count")
+				.description("To keep track of the number of times the /hello endpoint is used.")
 				.tag("purpose", "demo")
-				.register(registry);
-		
-		Counter counter2 = Counter
-				.builder("number_of_http_requests_to_planet")
-				.description("To keep track of the number of planet requests")
-				.tag("purpose", "planets")
 				.register(registry);
 		
 		app.get("/metrics", ctx -> {
 			ctx.result(registry.scrape());
 		});
 		
+		
+		
 		//---------Test Connection Endpoints--------------
-		app.get("/hello", ctx -> testController.hello(ctx));
+		app.get("/hello", ctx -> testController.hello(ctx, numHello));
 		//TODO: add /helloDB endpoint to test postgreSql connection.
 		
 		
